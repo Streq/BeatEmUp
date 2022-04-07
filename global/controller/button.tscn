@@ -3,4 +3,5 @@
 [ext_resource path="res://global/controller/button.gd" type="Script" id=1]
 
 [node name="button" type="Node"]
+process_priority = 1000
 script = ExtResource( 1 )

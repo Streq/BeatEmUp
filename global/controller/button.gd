@@ -21,4 +21,3 @@ func _input(event):
 
 func _physics_process(delta):
 	just_updated = false
-
