@@ -2,5 +2,5 @@
 
 [ext_resource path="res://state_machine/state_machine.gd" type="Script" id=1]
 
-[node name="Node" type="Node"]
+[node name="state_machine" type="Node"]
 script = ExtResource( 1 )

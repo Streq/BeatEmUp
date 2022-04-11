@@ -1,4 +1,4 @@
-extends Node
+extends Controller
 
 var buttons := {}
 
