@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://state_machine/state.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://state_machine/state_machine.gd"
+} ]
+_global_script_class_icons={
+"State": "",
+"StateMachine": ""
+}
+
 [application]
 
 config/name="Fighting Game"
@@ -17,6 +33,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Controller="*res://global/controller/controller.tscn"
+FrameStep="*res://global/frame_step/frame_step.tscn"
 
 [input]
 

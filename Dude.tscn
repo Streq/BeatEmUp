@@ -1,0 +1,212 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://fighter.gd" type="Script" id=1]
+[ext_resource path="res://AnimationTree.gd" type="Script" id=2]
+[ext_resource path="res://asset/texture/dude_sheet.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=44]
+extents = Vector2( 5, 6 )
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "air"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "jump"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+advance_condition = "walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+advance_condition = "idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+advance_condition = "air"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+advance_condition = "air"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+advance_condition = "idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+advance_condition = "walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
+advance_condition = "jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+advance_condition = "jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=45]
+states/air/node = SubResource( 14 )
+states/air/position = Vector2( 711, 294 )
+states/idle/node = SubResource( 9 )
+states/idle/position = Vector2( 436, 61 )
+states/jump/node = SubResource( 20 )
+states/jump/position = Vector2( 711, -58 )
+states/walk/node = SubResource( 10 )
+states/walk/position = Vector2( 955, 61 )
+transitions = [ "idle", "walk", SubResource( 11 ), "walk", "idle", SubResource( 12 ), "walk", "air", SubResource( 15 ), "idle", "air", SubResource( 16 ), "air", "idle", SubResource( 17 ), "air", "walk", SubResource( 18 ), "idle", "jump", SubResource( 21 ), "walk", "jump", SubResource( 22 ), "jump", "air", SubResource( 23 ) ]
+start_node = "idle"
+graph_offset = Vector2( 63.3245, -102.347 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=46]
+
+[sub_resource type="RectangleShape2D" id=47]
+
+[sub_resource type="RectangleShape2D" id=48]
+
+[sub_resource type="Animation" id=49]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/display/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=53]
+resource_name = "air"
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/display/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 17 ]
+}
+
+[sub_resource type="Animation" id=50]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/display/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=52]
+resource_name = "jump"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/display/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 16 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "jump"
+} ]
+}
+
+[sub_resource type="Animation" id=51]
+resource_name = "walk"
+length = 0.5
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/display/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 26, 24 ]
+}
+
+[node name="Dude" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="terrain_box" type="CollisionShape2D" parent="."]
+shape = SubResource( 44 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 45 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+process_mode = 2
+parameters/playback = SubResource( 46 )
+parameters/conditions/air = false
+parameters/conditions/idle = false
+parameters/conditions/jump = false
+parameters/conditions/walk = false
+script = ExtResource( 2 )
+
+[node name="pivot" type="Node2D" parent="."]
+
+[node name="hurtbox" type="Node2D" parent="pivot"]
+
+[node name="main" type="Area2D" parent="pivot/hurtbox"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hurtbox/main"]
+shape = SubResource( 47 )
+
+[node name="hitbox" type="Node2D" parent="pivot"]
+
+[node name="jab" type="Area2D" parent="pivot/hitbox"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hitbox/jab"]
+shape = SubResource( 48 )
+disabled = true
+
+[node name="display" type="Node2D" parent="pivot"]
+
+[node name="Sprite" type="Sprite" parent="pivot/display"]
+texture = ExtResource( 3 )
+hframes = 8
+vframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 2
+anims/RESET = SubResource( 49 )
+anims/air = SubResource( 53 )
+anims/idle = SubResource( 50 )
+anims/jump = SubResource( 52 )
+anims/walk = SubResource( 51 )

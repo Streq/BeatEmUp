@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://fighter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Dude.tscn" type="PackedScene" id=2]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -74,8 +74,8 @@ collision_layer = 2
 format = 1
 tile_data = PoolIntArray( 196616, 0, 0, 196635, 0, 0, 262152, 0, 0, 262171, 0, 0, 327688, 0, 0, 327707, 0, 0, 393224, 0, 0, 393243, 0, 0, 458760, 0, 0, 458779, 0, 0, 524296, 0, 0, 524315, 0, 0, 589832, 0, 0, 589851, 0, 0, 655368, 0, 0, 655387, 0, 0, 720904, 0, 0, 720905, 0, 0, 720906, 0, 0, 720907, 0, 0, 720908, 0, 0, 720909, 0, 0, 720910, 0, 0, 720911, 0, 0, 720912, 0, 0, 720913, 0, 0, 720914, 0, 0, 720915, 0, 0, 720916, 0, 0, 720917, 0, 0, 720918, 0, 0, 720919, 0, 0, 720920, 0, 0, 720921, 0, 0, 720922, 0, 0, 720923, 0, 0 )
 
-[node name="fighter" parent="." instance=ExtResource( 2 )]
-position = Vector2( 536, 234 )
+[node name="Dude" parent="." instance=ExtResource( 2 )]
+position = Vector2( 583, 338 )
 
-[node name="Camera2D" type="Camera2D" parent="fighter"]
+[node name="Camera2D" type="Camera2D" parent="Dude"]
 current = true
