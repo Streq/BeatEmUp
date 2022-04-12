@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://input/player_controller.gd" type="Script" id=3]
+[ext_resource path="res://input/player_controller.tscn" type="PackedScene" id=2]
 [ext_resource path="res://fighter/skel/fighter_skel.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -81,5 +81,4 @@ position = Vector2( 461, 310 )
 [node name="Camera2D" type="Camera2D" parent="fighter"]
 current = true
 
-[node name="controller" type="Node" parent="fighter"]
-script = ExtResource( 3 )
+[node name="player_controller" parent="fighter" instance=ExtResource( 2 )]
