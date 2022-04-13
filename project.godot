@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "Bool",
+"language": "GDScript",
+"path": "res://global/bool.gd"
+}, {
 "base": "Node",
 "class": "Controller",
 "language": "GDScript",
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://state_machine/state_machine.gd"
 } ]
 _global_script_class_icons={
+"Bool": "",
 "Controller": "",
 "State": "",
 "StateMachine": ""

@@ -57,7 +57,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="simul_press_timer" type="Timer" parent="input_buffer"]
-wait_time = 0.05
+wait_time = 0.033
 one_shot = true
 
 [node name="combo_listener" type="Node" parent="."]
@@ -66,11 +66,11 @@ input_buffer = NodePath("../input_buffer")
 
 [node name="shoryuken" type="Node" parent="combo_listener"]
 script = ExtResource( 5 )
-combinations = PoolStringArray( "rdrB", "ldlB" )
+combinations = PoolStringArray( "623B", "421B" )
 
 [node name="hadouken" type="Node" parent="combo_listener"]
 script = ExtResource( 5 )
-combinations = PoolStringArray( "drB", "dlB" )
+combinations = PoolStringArray( "236B", "214B" )
 
 [connection signal="timeout" from="combo_name/Timer" to="combo_name" method="_on_Timer_timeout"]
 [connection signal="combo" from="combo_listener" to="combo_name" method="_on_combo"]
