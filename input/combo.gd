@@ -1,5 +1,6 @@
 extends Node
 
+export (String) var state_to
 export (PoolStringArray) var states_from
 export (bool) var requires_combo
 export (PoolStringArray) var combos

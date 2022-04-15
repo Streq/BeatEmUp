@@ -6,7 +6,7 @@ export (NodePath) onready var controller = get_node(controller) as Controller
 onready var combo_timer: Timer = $combo_timer
 
 #window of time for pressing several keys at the same time
-const simul_press_frames_threshold = 3
+export var simul_press_frames_threshold := 3
 var simul_press_frames = simul_press_frames_threshold
 
 

@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://input/combo.gd" type="Script" id=1]
+[ext_resource path="res://input/move_listener.gd" type="Script" id=2]
+
+[node name="move_list" type="Node"]
+script = ExtResource( 2 )
+input_buffer = NodePath("../input_buffer")
+
+[node name="shinku hadoken" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk", "crouch" )
+requires_combo = true
+combos = PoolStringArray( "236236B", "214214B" )
+
+[node name="shakunetsu hadoken" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk", "crouch" )
+requires_combo = true
+combos = PoolStringArray( "41236B", "63214B" )
+
+[node name="tatsumaki senpukyaku" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk", "crouch" )
+requires_combo = true
+combos = PoolStringArray( "214A", "236A" )
+
+[node name="hadoken" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk", "crouch" )
+requires_combo = true
+combos = PoolStringArray( "236B", "214B" )
+
+[node name="shoryuken" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk", "crouch" )
+requires_combo = true
+combos = PoolStringArray( "623B", "421B" )
+
+[node name="side smash" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk" )
+requires_combo = true
+combos = PoolStringArray( "4+B", "6+B" )
+
+[node name="up smash" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk" )
+requires_combo = true
+combos = PoolStringArray( "8+B" )
+
+[node name="down smash" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk", "crouch" )
+requires_combo = true
+combos = PoolStringArray( "2+B" )
+
+[node name="side jab" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk" )
+requires_combo = true
+combos = PoolStringArray( "B" )
+requires_held_direction = true
+held_directions = PoolVector2Array( 1, 0, -1, 0 )
+
+[node name="up jab" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk" )
+requires_combo = true
+combos = PoolStringArray( "B" )
+requires_held_direction = true
+held_directions = PoolVector2Array( 0, -1, 1, -1, -1, -1 )
+
+[node name="jab" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle" )
+requires_combo = true
+combos = PoolStringArray( "B" )
+
+[node name="run" type="Node" parent="."]
+script = ExtResource( 1 )
+requires_combo = true
+combos = PoolStringArray( "44", "66" )
+
+[node name="jump" type="Node" parent="."]
+script = ExtResource( 1 )
+requires_combo = true
+combos = PoolStringArray( "8" )
+
+[node name="walk" type="Node" parent="."]
+script = ExtResource( 1 )
+requires_held_direction = true
+held_directions = PoolVector2Array( 1, 0, -1, 0, 1, -1, -1, -1 )
+
+[node name="crouch" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk", "run" )
+requires_held_direction = true
+held_directions = PoolVector2Array( 1, 1, -1, 1, 0, 1 )
+
+[node name="idle" type="Node" parent="."]
+script = ExtResource( 1 )
+states_from = PoolStringArray( "idle", "walk", "run" )

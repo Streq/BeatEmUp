@@ -1,8 +1,15 @@
 extends Node
 class_name State
 signal finish(next_state, params)
+signal entered()
+signal exited()
 
-
+func enter(params):
+	_enter(params)
+	emit_signal("entered")
+func exit():
+	_exit()
+	emit_signal("exited")
 # Initialize the state. E.g. change the animation
 func _enter(params):
 	pass

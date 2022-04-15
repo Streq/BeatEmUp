@@ -10,7 +10,7 @@ func _ready():
 		states[state.name] = state
 		state.connect("finish", self, "_change_state")
 	current = states[start_state]
-	current._enter(null)
+	current.enter(null)
 	
 func _process(delta: float):
 	current._update(delta)
@@ -24,4 +24,4 @@ func _input(event: InputEvent):
 func _change_state(state_name: String, params):
 	current._exit()
 	current = states[state_name]
-	current._enter(params)
+	current.enter(params)

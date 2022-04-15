@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://input/input_buffer.gd" type="Script" id=1]
+
+[node name="input_buffer" type="Node"]
+script = ExtResource( 1 )
+controller = NodePath("../player_controller")
+
+[node name="combo_timer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.25
+one_shot = true
