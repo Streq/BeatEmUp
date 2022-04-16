@@ -1,4 +1,7 @@
 extends Node
+class_name InputState
+
+signal new_input
 
 export (NodePath) onready var controller = get_node(controller) as Controller
 
@@ -14,6 +17,7 @@ var simul_press_frames = simul_press_frames_threshold
 var buffer = ""
 
 var simul_press = false
+var is_latest = false
 
 const buttons := ["A", "B"]
 
@@ -31,16 +35,22 @@ var held_direction := Vector2()
 func check():
 	var direction = controller.get_direction()
 	#new direction?
-	if direction != held_direction and direction != Vector2.ZERO:
-		_update_buffer(dirs[direction])
+	var input_changed = direction != held_direction
+	var is_new_direction = input_changed and direction != Vector2.ZERO
 	held_direction = direction
+	if is_new_direction:
+		_push_to_buffer(dirs[direction])
 	for button in buttons:
 		if controller.is_just_pressed(button):
 			if simul_press:
 				buffer += "+"
-			_update_buffer(button)
-			
+			_push_to_buffer(button)
+			input_changed = true
+	if input_changed:
+		emit_signal("new_input")
+	
 func _physics_process(delta):
+	is_latest = false
 	if combo_timer.is_stopped():
 		buffer = ""
 	if simul_press_frames <= 0:
@@ -48,10 +58,11 @@ func _physics_process(delta):
 	check()
 	simul_press_frames -= 1
 	
-func _update_buffer(input):
+func _push_to_buffer(input):
 	combo_timer.start()
 	if simul_press_frames <= 0:
 		simul_press_frames = simul_press_frames_threshold
 		simul_press = true
 	buffer += input
+	is_latest = true
 	

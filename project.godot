@@ -19,6 +19,26 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://input/controller.gd"
 }, {
+"base": "Area2D",
+"class": "Hitbox",
+"language": "GDScript",
+"path": "res://hitbox/hitbox.gd"
+}, {
+"base": "Area2D",
+"class": "Hurtbox",
+"language": "GDScript",
+"path": "res://hitbox/hurtbox.gd"
+}, {
+"base": "Node",
+"class": "InputState",
+"language": "GDScript",
+"path": "res://input/input_buffer.gd"
+}, {
+"base": "Node",
+"class": "Move",
+"language": "GDScript",
+"path": "res://input/combo.gd"
+}, {
 "base": "Node",
 "class": "PoolArray",
 "language": "GDScript",
@@ -37,6 +57,10 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Bool": "",
 "Controller": "",
+"Hitbox": "",
+"Hurtbox": "",
+"InputState": "",
+"Move": "",
 "PoolArray": "",
 "State": "",
 "StateMachine": ""
@@ -52,6 +76,10 @@ config/icon="res://icon.png"
 
 Controller0="*res://global/controller/controller.tscn"
 FrameStep="*res://global/frame_step/frame_step.tscn"
+
+[debug]
+
+shapes/collision/shape_color=Color( 1, 1, 1, 0.419608 )
 
 [input]
 

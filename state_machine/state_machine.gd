@@ -1,5 +1,7 @@
 extends Node
 class_name StateMachine
+signal state_changed(state)
+
 export (String) var start_state
 
 var current: State = null
@@ -13,15 +15,16 @@ func _ready():
 	current.enter(null)
 	
 func _process(delta: float):
-	current._update(delta)
+	current.update(delta)
 
 func _physics_process(delta: float):
-	current._physics_update(delta)
+	current.physics_update(delta)
 
 func _input(event: InputEvent):
 	current._handle_input(event)
 
 func _change_state(state_name: String, params):
-	current._exit()
+	current.exit()
 	current = states[state_name]
 	current.enter(params)
+	emit_signal("state_changed", state_name)

@@ -3,9 +3,8 @@
 [ext_resource path="res://input/combo.gd" type="Script" id=1]
 [ext_resource path="res://input/move_listener.gd" type="Script" id=2]
 
-[node name="move_list" type="Node"]
+[node name="combo_checker" type="Node"]
 script = ExtResource( 2 )
-input_buffer = NodePath("../input_buffer")
 
 [node name="shinku hadoken" type="Node" parent="."]
 script = ExtResource( 1 )

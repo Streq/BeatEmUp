@@ -78,6 +78,3 @@ tile_data = PoolIntArray( 196616, 0, 0, 196635, 0, 0, 262152, 0, 0, 262171, 0, 0
 [node name="fighter" parent="." instance=ExtResource( 3 )]
 
 [node name="player_controller" parent="fighter" instance=ExtResource( 2 )]
-
-[node name="Camera2D" type="Camera2D" parent="fighter"]
-current = true

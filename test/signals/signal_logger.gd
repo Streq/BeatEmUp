@@ -22,4 +22,4 @@ func _on_signaler_C():
 	print("signal C arrived")
 
 func _on_signaler_A2_params(a,b):
-	print("signal A arrived")
+	print("signal A arrived with args: ", a, ", ", b)

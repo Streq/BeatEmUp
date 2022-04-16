@@ -10,4 +10,5 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [connection signal="B" from="." to="signal_logger" method="_on_signaler_B"]
+[connection signal="B" from="." to="signal_logger" method="_on_signaler_A2_params" binds= [ "bound_arg" ]]
 [connection signal="C" from="." to="signal_logger" method="_on_signaler_C"]

@@ -4,7 +4,7 @@
 [ext_resource path="res://input/input_buffer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://test/combo/input_state_display.gd" type="Script" id=3]
 [ext_resource path="res://test/combo/combo_name.gd" type="Script" id=4]
-[ext_resource path="res://test/combo/move_list.tscn" type="PackedScene" id=5]
+[ext_resource path="res://test/combo/combo_checker.tscn" type="PackedScene" id=5]
 [ext_resource path="res://icon.png" type="Texture" id=8]
 [ext_resource path="res://test/combo/joystick.gd" type="Script" id=9]
 
