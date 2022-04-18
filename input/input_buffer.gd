@@ -2,8 +2,9 @@ extends Node
 class_name InputState
 
 signal new_input
+signal buffer_changed(val)
 
-export (NodePath) onready var controller = get_node(controller) as Controller
+export (NodePath) onready var controller = get_node(controller) if has_node(controller) else null
 
 #time it takes for the combo buffer to end
 onready var combo_timer: Timer = $combo_timer
@@ -14,7 +15,7 @@ var simul_press_frames = simul_press_frames_threshold
 
 
 #stores combos like A+B , 623B
-var buffer = ""
+var buffer = "" setget set_buffer
 
 var simul_press = false
 var is_latest = false
@@ -52,7 +53,7 @@ func check():
 func _physics_process(delta):
 	is_latest = false
 	if combo_timer.is_stopped():
-		buffer = ""
+		self.buffer = ""
 	if simul_press_frames <= 0:
 		simul_press = false
 	check()
@@ -63,6 +64,12 @@ func _push_to_buffer(input):
 	if simul_press_frames <= 0:
 		simul_press_frames = simul_press_frames_threshold
 		simul_press = true
-	buffer += input
+	self.buffer += input
 	is_latest = true
 	
+func set_controller(val):
+	controller = val
+
+func set_buffer(val):
+	buffer = val
+	emit_signal("buffer_changed", buffer)

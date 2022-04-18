@@ -4,29 +4,41 @@ signal air
 signal hurt
 signal dead
 signal resurrected
+signal hit_wall
+signal left_wall
 signal health_changed(proportion)
-
+signal controller_changed(new_controller)
 
 export var max_health: float = 100
 export var health: float = 100 setget set_health
 export var gravity: float = 400
 export var jump_speed: float = 200
+export var speed: float = 100
+export var run_speed: float = 200
 export var can_turn = true
 export var flip_h = false
 
 onready var input_state = $input_state
 onready var state_machine = $state_machine
+onready var controller: Controller = $controller if has_node("controller") else Controller.new() setget set_controller
+onready var animation: AnimationPlayer = $AnimationPlayer
 var velocity := Vector2()
 var dead = false
 var facing_dir : float setget ,get_facing_dir
 
 
 func _ready():
-	emit_signal("health_changed", health/max_health)
+	set_health(health)
+	set_controller(controller)
+
+func set_controller(val: Controller):
+	controller = val
+	emit_signal("controller_changed", controller)
 
 func _physics_process(delta):
 	velocity.y += gravity*delta
 	var aux_floor = is_on_floor()
+	var aux_wall = is_on_wall()
 #	print("moving at velocity ", velocity)
 	velocity = move_and_slide(velocity, Vector2.UP)
 	if aux_floor != is_on_floor():
@@ -34,8 +46,14 @@ func _physics_process(delta):
 			emit_signal("landed")
 		else:
 			emit_signal("air")
+	if aux_wall != is_on_wall():
+		if is_on_wall():
+			emit_signal("hit_wall")
+		else:
+			emit_signal("left_wall")
 
 	$pivot.scale.x = -1.0 if flip_h else 1.0
+	animation.advance(delta)
 
 func jump():
 	velocity.y -= jump_speed
@@ -44,11 +62,13 @@ func step_forward(vel):
 	velocity.x += vel*Bool.sign(flip_h)
 
 func get_hit(hitbox: Hitbox):
+	state_machine._change_state("hurt", null)
 	hitbox.apply_damage(self)
 	hitbox.apply_knockback(self)
+	
 
 func set_health(val: float):
-	health = clamp(health, 0.0, max_health)
+	health = clamp(val, 0.0, max_health)
 	emit_signal("health_changed", health/max_health)
 	if health == 0:
 		die()

@@ -2,7 +2,7 @@ extends Controller
 
 export var id := 0
 
-onready var controller = get_node("/root/Controller"+str(id))
+onready var controller = get_node("/root/Controllers/"+str(id))
 
 func is_pressed(name: String) -> bool:
 	return controller.is_pressed(name)

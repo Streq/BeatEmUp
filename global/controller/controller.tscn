@@ -10,22 +10,16 @@ script = ExtResource( 1 )
 [node name="buttons" type="Node" parent="."]
 
 [node name="up" parent="buttons" instance=ExtResource( 2 )]
-action = "ui_up"
 
 [node name="down" parent="buttons" instance=ExtResource( 2 )]
-action = "ui_down"
 
 [node name="left" parent="buttons" instance=ExtResource( 2 )]
-action = "ui_left"
 
 [node name="right" parent="buttons" instance=ExtResource( 2 )]
-action = "ui_right"
 
 [node name="A" parent="buttons" instance=ExtResource( 2 )]
-action = "A"
 
 [node name="B" parent="buttons" instance=ExtResource( 2 )]
-action = "B"
 
 [node name="logger" type="Node" parent="."]
 script = ExtResource( 3 )
