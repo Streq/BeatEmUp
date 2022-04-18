@@ -12,6 +12,7 @@ func _enter_deferred(args):
 	anim.play("RESET")
 	anim.advance(0)
 	anim.play(animation)
+	anim.advance(0)
 	if state_on_anim_fnish:
 		anim.connect("animation_finished", self, "_on_animation_finished")
 

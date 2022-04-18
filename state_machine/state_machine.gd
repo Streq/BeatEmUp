@@ -14,11 +14,17 @@ func _ready():
 	current = states[start_state]
 	current.enter(null)
 	
-func _process(delta: float):
-	current.update(delta)
+#func _process(delta: float):
+#	current.update(delta)
 
-func _physics_process(delta: float):
+#func _physics_process(delta: float):
+#	current.physics_update(delta)
+
+func physics_update(delta: float):
 	current.physics_update(delta)
+
+func update(delta: float):
+	current.update(delta)
 
 func _input(event: InputEvent):
 	current._handle_input(event)
