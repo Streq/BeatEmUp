@@ -1,4 +1,6 @@
 extends KinematicBody2D
+class_name Fighter
+
 signal landed
 signal air
 signal hurt
@@ -6,6 +8,8 @@ signal dead
 signal resurrected
 signal hit_wall
 signal left_wall
+signal got_hit
+signal hit_landed
 signal health_changed(proportion)
 signal controller_changed(new_controller)
 
@@ -23,6 +27,7 @@ onready var input_state = $input_state
 onready var state_machine = $state_machine
 onready var controller: Controller = $controller if has_node("controller") else Controller.new() setget set_controller
 onready var animation: AnimationPlayer = $AnimationPlayer
+onready var status_animation: AnimationPlayer = $status_animation
 var velocity := Vector2()
 var dead = false
 var facing_dir : float setget ,get_facing_dir
@@ -69,14 +74,19 @@ func get_hit(hitbox: Hitbox):
 	state_machine._change_state("hurt", null)
 	hitbox.apply_damage(self)
 	hitbox.apply_knockback(self)
+	status_animation.play("hitstun")
 	stunned += 1
 	yield(get_tree().create_timer(histstun),"timeout")
 	stunned -= 1
+	if !stunned:
+		status_animation.play("RESET")
+	emit_signal("got_hit")
 	
 func hit_landed():
 	stunned += 1
 	yield(get_tree().create_timer(histstun),"timeout")
 	stunned -= 1
+	emit_signal("hit_landed")
 
 func set_health(val: float):
 	health = clamp(val, 0.0, max_health)

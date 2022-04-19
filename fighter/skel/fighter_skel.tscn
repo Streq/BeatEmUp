@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://fighter.gd" type="Script" id=1]
 [ext_resource path="res://state_machine/state_machine.tscn" type="PackedScene" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://test/comboing_character/stop_horizontal_speed.gd" type="Script" id=11]
 [ext_resource path="res://hitbox/hitbox.gd" type="Script" id=12]
 [ext_resource path="res://hitbox/hurtbox.gd" type="Script" id=13]
+[ext_resource path="res://fighter/states/component/hit_counter.gd" type="Script" id=14]
+[ext_resource path="res://fighter/states/state_select.gd" type="Script" id=15]
 
 [sub_resource type="RectangleShape2D" id=44]
 extents = Vector2( 5, 6 )
@@ -61,6 +63,54 @@ tracks/2/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("pivot/hitbox/cross/CollisionShape2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("pivot/hitbox/cross/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("pivot/hitbox/dash_attack/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("pivot/hitbox/dash_attack/CollisionShape2D:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=50]
 resource_name = "air"
@@ -90,6 +140,61 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 19 ]
+}
+
+[sub_resource type="Animation" id=65]
+resource_name = "cross"
+length = 0.216667
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/hitbox/cross/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.133333 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivot/hitbox/cross/CollisionShape2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.133333 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("pivot/display/Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.133333 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 27, 28, 29 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.05 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 50.0 ],
+"method": "step_forward"
+} ]
 }
 
 [sub_resource type="Animation" id=55]
@@ -197,7 +302,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=57]
 resource_name = "jab"
-length = 0.3
+length = 0.15
+step = 0.0166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("pivot/hitbox/jab/CollisionShape2D:disabled")
 tracks/0/interp = 1
@@ -205,7 +311,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0, 0.05, 0.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -217,7 +323,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0, 0.05, 0.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
@@ -229,7 +335,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0, 0.05, 0.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ 24, 41, 26 ]
@@ -241,10 +347,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.1 ),
+"times": PoolRealArray( 0.0666667 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ 100.0 ],
+"args": [ 0.0 ],
 "method": "step_forward"
 } ]
 }
@@ -330,6 +436,39 @@ tracks/0/keys = {
 "values": [ 26, 24 ]
 }
 
+[sub_resource type="Animation" id=63]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/display:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=64]
+resource_name = "hitstun"
+length = 0.133333
+loop = true
+step = 0.0666667
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivot/display:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0666667 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1, 0 ), Vector2( 1, 0 ) ]
+}
+
 [node name="fighter" type="KinematicBody2D"]
 position = Vector2( 461, 310 )
 collision_mask = 0
@@ -366,7 +505,6 @@ collision_layer = 4
 collision_mask = 8
 script = ExtResource( 12 )
 damage = 5.0
-knockback = Vector2( 50, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hitbox/jab"]
 visible = false
@@ -374,7 +512,7 @@ position = Vector2( 8, -1 )
 shape = SubResource( 56 )
 disabled = true
 
-[node name="jab2" type="Area2D" parent="pivot/hitbox"]
+[node name="cross" type="Area2D" parent="pivot/hitbox"]
 modulate = Color( 1, 0, 0, 1 )
 collision_layer = 4
 collision_mask = 8
@@ -382,7 +520,7 @@ script = ExtResource( 12 )
 damage = 10.0
 knockback = Vector2( 300, -200 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hitbox/jab2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/hitbox/cross"]
 visible = false
 position = Vector2( 8, -1 )
 shape = SubResource( 56 )
@@ -407,6 +545,7 @@ playback_process_mode = 2
 anims/RESET = SubResource( 49 )
 anims/air = SubResource( 50 )
 anims/air_dead = SubResource( 59 )
+anims/cross = SubResource( 65 )
 anims/crouch = SubResource( 55 )
 anims/dash_attack = SubResource( 62 )
 anims/hurt = SubResource( 60 )
@@ -461,19 +600,6 @@ animation = "air_dead"
 script = ExtResource( 7 )
 mode = 1
 state_to = "dead"
-
-[node name="jab" type="Node" parent="state_machine"]
-script = ExtResource( 5 )
-animation = "jab"
-state_on_anim_fnish = "idle"
-
-[node name="on_air" type="Node" parent="state_machine/jab"]
-script = ExtResource( 7 )
-state_to = "air"
-
-[node name="set_horizontal_velocity" type="Node" parent="state_machine/jab"]
-script = ExtResource( 11 )
-lerp_val = 10.0
 
 [node name="dash_attack" type="Node" parent="state_machine"]
 script = ExtResource( 5 )
@@ -530,6 +656,40 @@ animation = "air"
 script = ExtResource( 7 )
 mode = 1
 state_to = "crouch"
+
+[node name="jab" type="Node" parent="state_machine"]
+script = ExtResource( 15 )
+start_state = "jab"
+
+[node name="jab" type="Node" parent="state_machine/jab"]
+script = ExtResource( 5 )
+animation = "jab"
+state_on_anim_fnish = "idle"
+
+[node name="on_air" type="Node" parent="state_machine/jab/jab"]
+script = ExtResource( 7 )
+state_to = "air"
+
+[node name="set_horizontal_velocity" type="Node" parent="state_machine/jab/jab"]
+script = ExtResource( 11 )
+lerp_val = 10.0
+
+[node name="hit_counter" type="Node" parent="state_machine/jab/jab"]
+script = ExtResource( 14 )
+goal = 2
+
+[node name="cross" type="Node" parent="state_machine/jab"]
+script = ExtResource( 5 )
+animation = "cross"
+state_on_anim_fnish = "idle"
+
+[node name="on_air" type="Node" parent="state_machine/jab/cross"]
+script = ExtResource( 7 )
+state_to = "air"
+
+[node name="set_horizontal_velocity" type="Node" parent="state_machine/jab/cross"]
+script = ExtResource( 11 )
+lerp_val = 10.0
 
 [node name="input_state" parent="." instance=ExtResource( 6 )]
 
@@ -619,9 +779,15 @@ margin_top = -21.0
 margin_right = 24.0
 margin_bottom = -7.0
 
+[node name="status_animation" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 63 )
+anims/hitstun = SubResource( 64 )
+
 [connection signal="controller_changed" from="." to="input_state" method="set_controller"]
 [connection signal="health_changed" from="." to="ProgressBar" method="set_as_ratio"]
 [connection signal="area_entered" from="pivot/hurtbox/main" to="pivot/hurtbox/main" method="_on_hitbox_entered"]
 [connection signal="state_changed" from="state_machine" to="state_label" method="set_text"]
+[connection signal="goal" from="state_machine/jab/jab/hit_counter" to="state_machine/jab" method="set_state" binds= [ "cross" ]]
+[connection signal="exited" from="state_machine/jab/cross" to="state_machine/jab" method="set_state" binds= [ "jab" ]]
 [connection signal="buffer_changed" from="input_state" to="buffer_label" method="set_text"]
 [connection signal="combo" from="move_listener" to="combo_label" method="set_text"]

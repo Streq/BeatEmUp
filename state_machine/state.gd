@@ -38,7 +38,3 @@ func _physics_update(delta: float):
 # Called during _input
 func _handle_input(event: InputEvent):
 	return
-
-# Called when current animation finished
-func _on_animation_finished(name:String):
-	return
