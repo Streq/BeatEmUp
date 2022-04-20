@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://fighter.gd" type="Script" id=1]
 [ext_resource path="res://state_machine/state_machine.tscn" type="PackedScene" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://hitbox/hurtbox.gd" type="Script" id=13]
 [ext_resource path="res://fighter/states/component/hit_counter.gd" type="Script" id=14]
 [ext_resource path="res://fighter/states/state_select.gd" type="Script" id=15]
+[ext_resource path="res://fighter/states/air.gd" type="Script" id=16]
+[ext_resource path="res://fighter/states/component/walk_or_run.gd" type="Script" id=17]
 
 [sub_resource type="RectangleShape2D" id=44]
 extents = Vector2( 5, 6 )
@@ -199,6 +201,8 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=55]
 resource_name = "crouch"
+length = 0.05
+step = 0.0166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("pivot/display/Sprite:frame")
 tracks/0/interp = 1
@@ -574,7 +578,7 @@ lerp_val = 10.0
 [node name="hurt" type="Node" parent="state_machine"]
 script = ExtResource( 5 )
 animation = "hurt"
-state_on_anim_fnish = "idle"
+state_on_anim_finish = "idle"
 
 [node name="set_horizontal_velocity" type="Node" parent="state_machine/hurt"]
 script = ExtResource( 11 )
@@ -604,7 +608,7 @@ state_to = "dead"
 [node name="dash_attack" type="Node" parent="state_machine"]
 script = ExtResource( 5 )
 animation = "dash_attack"
-state_on_anim_fnish = "idle"
+state_on_anim_finish = "idle"
 
 [node name="on_air" type="Node" parent="state_machine/dash_attack"]
 script = ExtResource( 7 )
@@ -617,6 +621,7 @@ lerp_val = 10.0
 [node name="crouch" type="Node" parent="state_machine"]
 script = ExtResource( 5 )
 animation = "crouch"
+state_on_anim_finish = "idle"
 
 [node name="on_air" type="Node" parent="state_machine/crouch"]
 script = ExtResource( 7 )
@@ -632,6 +637,22 @@ script = ExtResource( 4 )
 [node name="on_air" type="Node" parent="state_machine/walk"]
 script = ExtResource( 7 )
 state_to = "air"
+
+[node name="land" type="Node" parent="state_machine"]
+script = ExtResource( 5 )
+animation = "crouch"
+state_on_anim_finish = "idle"
+
+[node name="on_air" type="Node" parent="state_machine/land"]
+script = ExtResource( 7 )
+state_to = "air"
+
+[node name="set_finish_state" type="Node" parent="state_machine/land"]
+script = ExtResource( 17 )
+
+[node name="set_horizontal_velocity" type="Node" parent="state_machine/land"]
+script = ExtResource( 11 )
+lerp_val = 5.0
 
 [node name="jump" type="Node" parent="state_machine"]
 script = ExtResource( 5 )
@@ -649,13 +670,13 @@ script = ExtResource( 7 )
 state_to = "air"
 
 [node name="air" type="Node" parent="state_machine"]
-script = ExtResource( 5 )
+script = ExtResource( 16 )
 animation = "air"
 
 [node name="on_landed" type="Node" parent="state_machine/air"]
 script = ExtResource( 7 )
 mode = 1
-state_to = "crouch"
+state_to = "land"
 
 [node name="jab" type="Node" parent="state_machine"]
 script = ExtResource( 15 )
@@ -664,7 +685,7 @@ start_state = "jab"
 [node name="jab" type="Node" parent="state_machine/jab"]
 script = ExtResource( 5 )
 animation = "jab"
-state_on_anim_fnish = "idle"
+state_on_anim_finish = "idle"
 
 [node name="on_air" type="Node" parent="state_machine/jab/jab"]
 script = ExtResource( 7 )
@@ -678,10 +699,15 @@ lerp_val = 10.0
 script = ExtResource( 14 )
 goal = 2
 
+[node name="combo_timeout" type="Timer" parent="state_machine/jab/jab"]
+process_mode = 0
+wait_time = 0.5
+one_shot = true
+
 [node name="cross" type="Node" parent="state_machine/jab"]
 script = ExtResource( 5 )
 animation = "cross"
-state_on_anim_fnish = "idle"
+state_on_anim_finish = "idle"
 
 [node name="on_air" type="Node" parent="state_machine/jab/cross"]
 script = ExtResource( 7 )
@@ -788,6 +814,11 @@ anims/hitstun = SubResource( 64 )
 [connection signal="area_entered" from="pivot/hurtbox/main" to="pivot/hurtbox/main" method="_on_hitbox_entered"]
 [connection signal="state_changed" from="state_machine" to="state_label" method="set_text"]
 [connection signal="goal" from="state_machine/jab/jab/hit_counter" to="state_machine/jab" method="set_state" binds= [ "cross" ]]
+[connection signal="goal" from="state_machine/jab/jab/hit_counter" to="state_machine/jab/jab/combo_timeout" method="start"]
+[connection signal="increment" from="state_machine/jab/jab/hit_counter" to="state_machine/jab/jab/combo_timeout" method="start"]
+[connection signal="timeout" from="state_machine/jab/jab/combo_timeout" to="state_machine/jab" method="set_state" binds= [ "jab" ]]
+[connection signal="timeout" from="state_machine/jab/jab/combo_timeout" to="state_machine/jab/jab/hit_counter" method="reset"]
+[connection signal="entered" from="state_machine/jab/cross" to="state_machine/jab/jab/combo_timeout" method="stop"]
 [connection signal="exited" from="state_machine/jab/cross" to="state_machine/jab" method="set_state" binds= [ "jab" ]]
 [connection signal="buffer_changed" from="input_state" to="buffer_label" method="set_text"]
 [connection signal="combo" from="move_listener" to="combo_label" method="set_text"]
