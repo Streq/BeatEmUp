@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://fighter.gd" type="Script" id=1]
+[ext_resource path="res://fighter/skel/fighter.gd" type="Script" id=1]
 [ext_resource path="res://state_machine/state_machine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://asset/texture/dude_sheet.png" type="Texture" id=3]
 [ext_resource path="res://input/input_buffer.tscn" type="PackedScene" id=6]

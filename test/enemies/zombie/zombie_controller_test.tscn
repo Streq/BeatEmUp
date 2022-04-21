@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://fighter/enemy/zombie/zombie.tscn" type="PackedScene" id=1]
+[ext_resource path="res://input/player_controller.tscn" type="PackedScene" id=2]
+[ext_resource path="res://fighter/characters/dude/dude.tscn" type="PackedScene" id=3]
+[ext_resource path="res://map.tscn" type="PackedScene" id=4]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="map" parent="." instance=ExtResource( 4 )]
+
+[node name="zombie" parent="." instance=ExtResource( 1 )]
+position = Vector2( 487, 427 )
+
+[node name="controller" parent="zombie" instance=ExtResource( 2 )]
+
+[node name="fighter" parent="." instance=ExtResource( 3 )]
+position = Vector2( 344, 426 )
+
+[node name="controller" parent="fighter" instance=ExtResource( 2 )]

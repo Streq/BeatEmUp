@@ -19,7 +19,6 @@ export var gravity: float = 400
 export var jump_speed: float = 200
 export var speed: float = 100
 export var run_speed: float = 200
-export var can_turn = true
 export var flip_h = false
 var stunned = 0
 

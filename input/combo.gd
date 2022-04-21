@@ -12,11 +12,11 @@ func check(input: InputState, current_state: String):
 	return (
 		(continuous or input.is_latest)
 		and
+		PoolArray.contains(states_from, current_state) 
+		and
 		(!requires_held_direction or PoolArray.contains(held_directions, input.held_direction)) 
 		and 
 		(!requires_combo or _check_buffer_for_combo(input.buffer))
-		and
-		PoolArray.contains(states_from, current_state) 
 	)
 
 func _check_buffer_for_combo(buffer: String):

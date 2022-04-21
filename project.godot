@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Fighter",
 "language": "GDScript",
-"path": "res://fighter.gd"
+"path": "res://fighter/skel/fighter.gd"
 }, {
 "base": "Area2D",
 "class": "Hitbox",

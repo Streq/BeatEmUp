@@ -2,5 +2,5 @@
 
 [ext_resource path="res://input/player_controller.gd" type="Script" id=1]
 
-[node name="player_controller" type="Node"]
+[node name="controller" type="Node"]
 script = ExtResource( 1 )
