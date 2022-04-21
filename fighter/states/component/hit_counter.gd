@@ -1,6 +1,7 @@
 extends Node
 signal goal
-
+signal increment
+signal reset
 
 onready var state : State = get_parent()
 onready var fighter : Fighter = state.owner
@@ -22,21 +23,28 @@ func _on_entered():
 func _on_exited():
 	fighter.disconnect("hit_landed", self, "_on_hit_landed")
 	if hit_landed:
-		self.count += 1
+		increment()
 	else:
-		self.count = 0
-	print(count)
+		reset()
 
 func _on_hit_landed():
 	hit_landed = true
 	pass
 
 func _on_got_hit():
+	reset()
+
+func reset():
 	self.count = 0
-	pass
+	emit_signal("reset")
+
+func increment():
+	self.count += 1
+	emit_signal("increment")
 
 func set_count(val):
 	count = val
+#	print(count)
 	if count == goal:
 		emit_signal("goal")
 		count = 0
