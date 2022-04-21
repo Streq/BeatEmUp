@@ -1,22 +1,23 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://fighter.gd" type="Script" id=1]
 [ext_resource path="res://state_machine/state_machine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://asset/texture/dude_sheet.png" type="Texture" id=3]
-[ext_resource path="res://test/comboing_character/state/walk.gd" type="Script" id=4]
-[ext_resource path="res://test/comboing_character/state/anim_state.gd" type="Script" id=5]
+[ext_resource path="res://fighter/states/walk.gd" type="Script" id=4]
+[ext_resource path="res://fighter/states/anim_state.gd" type="Script" id=5]
 [ext_resource path="res://input/input_buffer.tscn" type="PackedScene" id=6]
-[ext_resource path="res://test/comboing_character/on_air.gd" type="Script" id=7]
+[ext_resource path="res://fighter/states/component/on_air.gd" type="Script" id=7]
 [ext_resource path="res://input/move_listener.tscn" type="PackedScene" id=8]
-[ext_resource path="res://test/comboing_character/state/run.gd" type="Script" id=9]
+[ext_resource path="res://fighter/states/run.gd" type="Script" id=9]
 [ext_resource path="res://input/combo.tscn" type="PackedScene" id=10]
-[ext_resource path="res://test/comboing_character/stop_horizontal_speed.gd" type="Script" id=11]
+[ext_resource path="res://fighter/states/component/stop_horizontal_speed.gd" type="Script" id=11]
 [ext_resource path="res://hitbox/hitbox.gd" type="Script" id=12]
 [ext_resource path="res://hitbox/hurtbox.gd" type="Script" id=13]
 [ext_resource path="res://fighter/states/component/hit_counter.gd" type="Script" id=14]
 [ext_resource path="res://fighter/states/state_select.gd" type="Script" id=15]
 [ext_resource path="res://fighter/states/air.gd" type="Script" id=16]
 [ext_resource path="res://fighter/states/component/walk_or_run.gd" type="Script" id=17]
+[ext_resource path="res://fighter/states/air_run.gd" type="Script" id=18]
 
 [sub_resource type="RectangleShape2D" id=44]
 extents = Vector2( 5, 6 )
@@ -662,6 +663,14 @@ animation = "jump"
 script = ExtResource( 7 )
 state_to = "air"
 
+[node name="jump_run" type="Node" parent="state_machine"]
+script = ExtResource( 5 )
+animation = "jump"
+
+[node name="on_air" type="Node" parent="state_machine/jump_run"]
+script = ExtResource( 7 )
+state_to = "air_run"
+
 [node name="run" type="Node" parent="state_machine"]
 script = ExtResource( 9 )
 
@@ -674,6 +683,15 @@ script = ExtResource( 16 )
 animation = "air"
 
 [node name="on_landed" type="Node" parent="state_machine/air"]
+script = ExtResource( 7 )
+mode = 1
+state_to = "land"
+
+[node name="air_run" type="Node" parent="state_machine"]
+script = ExtResource( 18 )
+animation = "air"
+
+[node name="on_landed" type="Node" parent="state_machine/air_run"]
 script = ExtResource( 7 )
 mode = 1
 state_to = "land"
@@ -737,7 +755,13 @@ combos = PoolStringArray( "B" )
 
 [node name="jump" parent="move_listener" instance=ExtResource( 10 )]
 state_to = "jump"
-states_from = PoolStringArray( "idle", "run", "walk" )
+states_from = PoolStringArray( "idle", "walk" )
+requires_combo = true
+combos = PoolStringArray( "A" )
+
+[node name="jump_run" parent="move_listener" instance=ExtResource( 10 )]
+state_to = "jump_run"
+states_from = PoolStringArray( "run" )
 requires_combo = true
 combos = PoolStringArray( "A" )
 

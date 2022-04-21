@@ -5,12 +5,9 @@ func _enter(args):
 	anim.play("run")
 
 func _physics_update(delta):
+	var flip_h = owner.flip_h
+	owner.flip_h = owner.input_state.held_direction.x < 0
+	owner.velocity.x = lerp(owner.velocity.x, owner.facing_dir * owner.run_speed, 10.0*delta)
 	
-	var controller = owner.get_node("controller") as Controller
-	var dir =  Vector2(float(controller.is_pressed("right")) - float(controller.is_pressed("left")), float(controller.is_pressed("down")) - float(controller.is_pressed("up")))
-	
-	if !dir.x:
-		emit_signal("finish", "idle", null)
-		return
-	owner.velocity.x = dir.x * 100.0
-	owner.flip_h = dir.x<0
+	if flip_h != owner.flip_h:
+		 emit_signal("finish", "idle", null)

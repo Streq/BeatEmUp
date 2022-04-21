@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "State",
 "class": "AnimState",
 "language": "GDScript",
-"path": "res://test/comboing_character/state/anim_state.gd"
+"path": "res://fighter/states/anim_state.gd"
 }, {
 "base": "Reference",
 "class": "Bool",

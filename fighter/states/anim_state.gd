@@ -20,8 +20,12 @@ func _enter_deferred(args):
 
 	
 func _exit():
+	call_deferred("_exit_deferred")
+
+func _exit_deferred():
 	if state_on_anim_finish:
 		anim.disconnect("animation_finished", self, "_on_animation_finished")
+
 	
 func _on_animation_finished(name: String):
 	emit_signal("finish", state_on_anim_finish, null)
