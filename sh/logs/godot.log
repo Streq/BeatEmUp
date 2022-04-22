@@ -1,0 +1,14 @@
+ERROR: Class 'EditorSettings' can only be instantiated by editor.
+   at: instance (core/class_db.cpp:516) - Class 'EditorSettings' can only be instantiated by editor.
+ERROR: /home/streq/.local/share/Steam/steamapps/common/Godot Engine/editor_data/editor_settings-3.tres:8 - Parse Error: Can't create sub resource of type: EditorSettings
+   at: poll (scene/resources/resource_format_text.cpp:537) - /home/streq/.local/share/Steam/steamapps/common/Godot Engine/editor_data/editor_settings-3.tres:8 - Parse Error: Can't create sub resource of type: EditorSettings
+ERROR: Failed to load resource '/home/streq/.local/share/Steam/steamapps/common/Godot Engine/editor_data/editor_settings-3.tres'.
+   at: load (core/io/resource_loader.cpp:206) - Condition "err != OK" is true. Returned: RES()
+ERROR: Failed loading resource: /home/streq/.local/share/Steam/steamapps/common/Godot Engine/editor_data/editor_settings-3.tres. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:270) - Condition "found" is true. Returned: RES()
+WARNING: Could not open config file.
+   at: create (editor/editor_settings.cpp:952) - Could not open config file.
+ERROR: This project doesn't have an `export_presets.cfg` file at its root.
+Create an export preset from the "Project > Export" dialog and try again.
+   at: _fs_changed (editor/editor_node.cpp:801) - This project doesn't have an `export_presets.cfg` file at its root.
+Create an export preset from the "Project > Export" dialog and try again.
