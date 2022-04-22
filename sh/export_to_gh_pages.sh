@@ -22,7 +22,7 @@ git rm -rf . || exit "$?"
 
 if $GITIGNORE; then
 	print_message "recovering .gitignore"
-	git checkout HEAD -- .gitignore || exit "$?"
+	git checkout main -- .gitignore || exit "$?"
 fi
 
 print_message "applying stash"
