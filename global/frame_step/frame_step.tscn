@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://global/frame_step/frame_step.gd" type="Script" id=1]
-
-[node name="frame_step" type="Node"]
-pause_mode = 2
-process_priority = 10
-script = ExtResource( 1 )
